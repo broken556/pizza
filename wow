@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+        main {
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Pizza Order</h1>
+    </header>
+    <main>
+        <h2>Menu</h2>
+        <ul>
+            <li><input type="checkbox" id="pepperoni"> Pepperoni Pizza - $10.99</li>
+            <li><input type="checkbox" id="margherita"> Margherita Pizza - $9.99</li>
+            <li><input type="checkbox" id="veggie"> Veggie Pizza - $11.99</li>
+        </ul>
+        <h2>Your Order</h2>
+        <ul id="orderList"></ul>
+        <h3>Total: $<span id="total">0.00</span></h3>
+        <button onclick="placeOrder()">Place Order</button>
+    </main>
+    <script>
+        const menuItems = {
+            pepperoni: 10.99,
+            margherita: 9.99,
+            veggie: 11.99
+        };
+
+        const orderList = document.getElementById('orderList');
+        const totalSpan = document.getElementById('total');
+
+        function placeOrder() {
+            const selectedItems = Object.keys(menuItems).filter(item => document.getElementById(item).checked);
+            
+            orderList.innerHTML = '';
+            let total = 0;
+
+            selectedItems.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item.charAt(0).toUpperCase() + item.slice(1) + ' Pizza';
+                orderList.appendChild(listItem);
+                total += menuItems[item];
+            });
+
+            totalSpan.textContent = total.toFixed(2);
+        }
+    </script>
+</body>
+</html>
